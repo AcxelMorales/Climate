@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Climate</string>
+    <string name="app_name">Clima</string>
+    <string name="degrees">20º</string>
+    <string name="city">Ciudad de México</string>
+    <string name="state">Nublado</string>
+
+    <string name="text_welcome">Bienvenido a mi app del clima, para poder ver el clima de una ciudad selecciona la opción de abajo.</string>
+    <string name="text_button_city_mexico">Clima de la Ciudad de México</string>
+    <string name="text_button_city_paris">Clima de la Ciudad de Paris</string>
 </resources>
