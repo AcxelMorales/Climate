@@ -19,13 +19,13 @@ class CitiesActivity : AppCompatActivity() {
 
         btnMexico.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra(this.TAG, "ciudad-mexico")
+            intent.putExtra(this.TAG, "3527646")
             startActivity(intent)
         }
 
         btnParis.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra(this.TAG, "ciudad-paris")
+            intent.putExtra(this.TAG, "2988507")
             startActivity(intent)
         }
     }
