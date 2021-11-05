@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         val city = intent.getStringExtra("com.acxelmorales.climate.cities.CITY")
 
         if (Network.networkExist(this)) {
-            this.getData("https://api.openweathermap.org/data/2.5/weather?id=$city&appid=7b53a249f3f179c9a4fd947524ea30bd&units=metric&lang=es")
+            this.getData("https://api.openweathermap.org/data/2.5/weather?id=$city&appid=null&units=metric&lang=es")
         } else {
             Toast.makeText(this, "No tenemos red", Toast.LENGTH_LONG).show()
         }
