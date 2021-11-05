@@ -2,10 +2,18 @@ package com.acxelmorales.climate
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 
 import android.widget.TextView
-
 import android.widget.Toast
+
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+
+import com.google.gson.Gson
+
+import network.Network
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,20 +31,30 @@ class MainActivity : AppCompatActivity() {
 
         val city = intent.getStringExtra("com.acxelmorales.climate.cities.CITY")
 
-        val cityMX = City("Ciudad de México", 20, "Nublado")
-        val cityPR = City("Paris", 25, "Soleado")
-
-        if (city == "ciudad-mexico") {
-            tvCity?.text = cityMX.name
-            tvDegrees?.text = cityMX.degrees.toString() + "º"
-            tvState?.text = cityMX.state
-        } else if (city == "ciudad-paris") {
-            tvCity?.text = cityPR.name
-            tvDegrees?.text = cityPR.degrees.toString() + "º"
-            tvState?.text = cityPR.state
+        if (Network.networkExist(this)) {
+            this.getData("https://api.openweathermap.org/data/2.5/weather?id=$city&appid=7b53a249f3f179c9a4fd947524ea30bd&units=metric&lang=es")
         } else {
-            Toast.makeText(this, "No se encuntra info", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No tenemos red", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun getData(url: String) {
+        val queue = Volley.newRequestQueue(this)
+        val request = StringRequest(Request.Method.GET, url, {
+                response ->
+            try {
+                val gson = Gson()
+                val city = gson.fromJson(response, City::class.java)
+
+                tvCity?.text = city.name
+                tvDegrees?.text = city.main?.temp.toString() + "º"
+                tvState?.text = city.weather?.get(0)?.description
+            } catch (e: Exception) {
+                Log.e("Error", e.message.toString())
+            }
+        }, {  })
+
+        queue.add(request)
     }
 
 }
